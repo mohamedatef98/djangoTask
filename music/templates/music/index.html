@@ -1,0 +1,42 @@
+{% extends 'music/base.html' %} {%block title%}Albums{%endblock%}
+{% block albumsActive %}"active"{% endblock %} 
+{% block songsActive %}"no"{% endblock %} 
+{% block body %}
+<div class="row">
+    {% for album in albums%}
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail" style="background-color:#0d0d0d;">
+            <a href="{% url 'music:detail' album.id %}"><img src="{{album.logo.url}}" alt=""></a>
+            <div class="caption" style="color:white">
+                <h3>{{album.albumTitle}}</h3>
+                <h6>{{album.artist}}</h6>
+                <span><a href="{% url 'music:detail' album.id %}" class="btn btn-primary" role="button">Details</a>
+                    <button class="btn btn-default">
+                        {% if album.isFavorite %}
+                            <i class="fa fa-star" aria-hidden="true" style="color:#f57900"></i>
+                        {% else %}
+                            <i class="fa fa-star" aria-hidden="true" style="color:grey"></i>
+                        {% endif %}
+                    </button>
+                    <form action="{% url 'music:deleteAlbum' album.id %}" method="post" style="display:inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="albumId" value="{{album.id}}">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+<!-- <ul>
+    {% for album in albums %}
+        <li><a href="{% url 'music:detail' album.id %}">{{album.albumTitle}}</a></li>
+    {% endfor %}
+</ul> -->
+
+{% endblock %}

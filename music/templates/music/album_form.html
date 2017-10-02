@@ -1,0 +1,27 @@
+{% extends 'music/base.html' %}
+{% block title %}Add Album{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default"  style="background-color:rgba(0, 0, 0, 0) !important;border:1px solid rgba(0, 0, 0, 0) !important">
+                <div class="panel-body"  style="background-color:rgba(0, 0, 0, 0) !important;border:1px solid rgba(0, 0, 0, 0) !important">
+                    <form action="" method="post" class="form-horizontal" enctype="multipart/form-data"  style="background-color:rgba(0, 0, 0, 0) !important;border:1px solid rgba(0, 0, 0, 0) !important">
+                        {% csrf_token %}
+                        {% include 'music/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

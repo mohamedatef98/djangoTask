@@ -1,0 +1,62 @@
+{% extends 'music/base.html' %}
+
+{% block albumsActive %}"no"{% endblock %} 
+{% block songsActive %}"active"{% endblock %} 
+
+{% block body %}
+
+{% if errorMessage%}
+<p><strong>errorMessage</strong></p>
+{%endif%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12" style="background-color:#0d0d0d">
+            <img src="{{album.logo.url}}" class="img-responsive" alt="logo" style="">
+            <h1 >{{album.albumTitle}} <span style="color:lightgrey">{{album.genre}}</span></h1>
+            <h2>{{album.artist}}</h2>
+        </div>
+        <div class="col-lg-9 col-xl-9 col-md-9 col-sm-12 col-xs-12">
+            <h3>All Songs</h3>
+            <table style="width:100%">
+                <tr>
+                    <th>Title</th>
+                    <th>Audio File</th> 
+                    <th>Favorite</th>
+                    <th>Action</th>
+                </tr>
+                {% for song in album.song_set.all %}
+                <tr>
+                    <td>{{song.songTitle}}</td>
+                    <td>{{song.fileType}}</td>
+                    <td>
+                        {% if album.isFavorite %}
+                            <i class="fa fa-star" aria-hidden="true" style="color:#f57900"></i>
+                        {% else %}
+                        <i class="fa fa-star" aria-hidden="true" style="color:grey"></i>
+                        {% endif %}
+                    </td>
+                    <td>{{song.songTitle}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <form action="" method="post">
+    {% csrf_token %} 
+    {% for song in album.song_set.all %}
+        <input type="radio" name="song" id="song{{forloop.counter}}" value="{{song.id}}">
+        <label for="song{{forloop.counter}}">
+            {{song.songTitle}}
+            {% if song.isFavorite %}
+                <img src="http://www.goldentickets.com/images/ticketutils/IMG/preferred.png" alt="">
+            {% endif %}
+        </label><br>
+    {% endfor %}<br>
+    <input type="submit" value="Favorite">
+</form> -->
+{% endblock %}
